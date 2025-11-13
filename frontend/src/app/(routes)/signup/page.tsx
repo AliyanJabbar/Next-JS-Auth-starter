@@ -179,13 +179,13 @@ export default function SignUpPage() {
                     <TabsList className="grid w-full grid-cols-2 h-10 rounded-lg">
                       <TabsTrigger
                         value="signin"
-                        className="h-8 text-sm text-ourBrown hover:bg-ourBrown/50 hover:text-white data-[state=active]:bg-ourBrown/80 data-[state=active]:text-white rounded-md transition-colors"
+                        className="cursor-pointer h-8 text-sm text-ourBrown hover:bg-ourBrown/50 hover:text-white data-[state=active]:bg-ourBrown/80 data-[state=active]:text-white rounded-md transition-colors"
                       >
                         Sign In
                       </TabsTrigger>
                       <TabsTrigger
                         value="signup"
-                        className="h-8 text-sm text-ourBrown hover:bg-ourBrown hover:text-white data-[state=active]:bg-ourBrown/80 data-[state=active]:text-white rounded-md transition-colors"
+                        className="cursor-pointer h-8 text-sm text-ourBrown hover:bg-ourBrown/50 hover:text-white data-[state=active]:bg-ourBrown/80 data-[state=active]:text-white rounded-md transition-colors"
                       >
                         Sign Up
                       </TabsTrigger>
