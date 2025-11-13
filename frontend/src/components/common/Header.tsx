@@ -1,7 +1,12 @@
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Button } from "../ui/button";
 
 const Header = () => {
+  const { data: session, status } = useSession();
+
   return (
     <header className="text-gray-600 body-font">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -26,12 +31,38 @@ const Header = () => {
           <a className="mr-5 hover:text-gray-900">Third Link</a>
           <a className="mr-5 hover:text-gray-900">Fourth Link</a>
         </nav>
-        <Link href="/signin" className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-          Signin
-        </Link>
-        <Link href="/signup" className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-          Signup
-        </Link>
+        <div className="flex gap-4 items-center">
+          {status === "authenticated" ? (
+            <div className="flex items-center gap-5">
+              <div>authenticated</div>
+              <Image
+                src={session?.user?.image ?? "/default-avatar.png"}
+                alt="image"
+                width={50}
+                height={50}
+                className="rounded-full"
+              />
+              <Button className="cursor-pointer" onClick={() => signOut()}>
+                Sign out
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Link
+                href="/signin"
+                className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+              >
+                Signin
+              </Link>
+              <Link
+                href="/signup"
+                className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+              >
+                Signup
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
