@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form";
 import Link from "next/link";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? "Heartify";
 
@@ -104,14 +105,23 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white">
       {/* Left Side */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 fixed left-0 top-0 h-screen overflow-hidden z-10 bg-[url('/signin.png')] bg-cover">
-        <div className="flex flex-col items-center justify-end flex-1">
+      <div className="hidden lg:flex lg:w-1/2 bg-linear-to-br from-primary/10 via-primary/5 to-background flex-col justify-between p-12 fixed left-0 top-0 h-screen overflow-hidden z-10">
+        <div className="flex flex-col items-center justify-center flex-1">
           <div className="text-center space-y-8">
-            <div className="space-y-4 text-ourBrown">
-              <h1 className="text-4xl font-bold ">{`Join ${APP_NAME}`}</h1>
-              <p className="text-lg max-w-md ">
-                Take control of your health and wellness with personalized
-                fitness and nutrition guidance.
+            <Image
+              src="/Heartify.png"
+              alt="Heartify Logo"
+              width={200}
+              height={100}
+              className="mx-auto"
+            />
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold text-foreground">
+                Join {APP_NAME}
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-md">
+                Create beautiful messages and digital cards effortlessly with
+                our AI-powered wishes generator.
               </p>
             </div>
           </div>
@@ -119,18 +129,32 @@ export default function SignUpPage() {
       </div>
 
       {/* Right Side */}
-      <div className="flex-1  lg:w-1/2 lg:ml-[50%] flex flex-col min-h-screen lg:min-h-0 bg-ourLightGray">
+      <div className="flex-1 lg:w-1/2 lg:ml-[50%] flex flex-col min-h-screen lg:min-h-0">
         <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          {/* Auth Toggle */}
+
           <div className="w-full max-w-lg space-y-6">
-            <Card className="border-0 text-ourBlack shadow-md bg-ourBrown/50 p-6 rounded-lg">
+            {/* Mobile Logo */}
+            <div className="lg:hidden text-center">
+              <Image
+                src="/Heartify.png"
+                alt="Heartify Logo"
+                width={200}
+                height={100}
+                className="mx-auto"
+              />
+            </div>
+
+            <Card className="border-0 shadow-none bg-transparent">
               <CardHeader className="text-center space-y-0 pb-4">
+                {/* Back Button for Password Step */}
                 {step === "password" && (
                   <div className="flex justify-start mb-3">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setStep("email")}
-                      className="text-ourBrown hover:text-ourBrown/70 cursor-pointer transition-colors text-sm"
+                      className="text-primary/80 hover:text-primary transition-colors text-sm"
                     >
                       <ArrowLeft size={14} className="mr-1" />
                       Back to email
@@ -138,22 +162,23 @@ export default function SignUpPage() {
                   </div>
                 )}
 
-                <CardTitle className="text-2xl sm:text-3xl font-bold ">
+                <CardTitle className="text-2xl sm:text-3xl font-bold">
                   {step === "email"
                     ? "Create your account"
                     : "Set your password"}
                 </CardTitle>
-                <CardDescription className="text-base sm:text-lg ">
+                <CardDescription className="text-base sm:text-lg">
                   {step === "email"
-                    ? "Start your wellness journey today"
+                    ? "Start creating beautiful wishes in minutes"
                     : "Create a strong password to secure your account"}
                 </CardDescription>
 
+                {/* Show email in password step */}
                 {step === "password" && (
-                  <div className="mt-3 p-2 bg-ourBrown/50 text-white rounded-lg">
-                    <p className="text-xs ">
+                  <div className="mt-3 p-2 bg-muted/50 rounded-lg">
+                    <p className="text-xs text-primary/80">
                       Signing up with:{" "}
-                      <span className="font-medium">
+                      <span className="font-medium text-primary">
                         {form.getValues("email")}
                       </span>
                     </p>
@@ -162,7 +187,7 @@ export default function SignUpPage() {
 
                 {error && (
                   <div
-                    className="mt-3 rounded-md border border-ourBrown/50 bg-ourBrown/10 px-3 py-2 text-xs text-ourBrown"
+                    className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700"
                     role="alert"
                   >
                     {error}
@@ -176,17 +201,11 @@ export default function SignUpPage() {
                     onValueChange={handleTabChange}
                     className="w-full mt-4"
                   >
-                    <TabsList className="grid w-full grid-cols-2 h-10 rounded-lg">
-                      <TabsTrigger
-                        value="signin"
-                        className="cursor-pointer h-8 text-sm text-ourBrown hover:bg-ourBrown/50 hover:text-white data-[state=active]:bg-ourBrown/80 data-[state=active]:text-white rounded-md transition-colors"
-                      >
+                    <TabsList className="grid w-full grid-cols-2 h-10">
+                      <TabsTrigger value="signin" className="h-8 text-sm">
                         Sign In
                       </TabsTrigger>
-                      <TabsTrigger
-                        value="signup"
-                        className="cursor-pointer h-8 text-sm text-ourBrown hover:bg-ourBrown/50 hover:text-white data-[state=active]:bg-ourBrown/80 data-[state=active]:text-white rounded-md transition-colors"
-                      >
+                      <TabsTrigger value="signup" className="h-8 text-sm">
                         Sign Up
                       </TabsTrigger>
                     </TabsList>
@@ -195,69 +214,105 @@ export default function SignUpPage() {
               </CardHeader>
 
               <CardContent className="space-y-6">
+                {/* Step 1: Continue with Google or Email */}
                 {step === "email" && (
                   <>
+                    {/* OAuth */}
                     <div className="space-y-3">
                       <Button
-                        variant="default"
-                        className="w-full h-10 sm:h-12 text-base sm:text-lg bg-white text-ourBrown cursor-pointer hover:bg-ourBrown hover:text-white transition-colors"
+                        variant="outline"
+                        className="w-full h-10 sm:h-12 text-base sm:text-lg"
                         type="button"
                         onClick={handleGoogle}
                         disabled={loading || googleLoading}
                         aria-busy={googleLoading}
                         aria-disabled={loading || googleLoading}
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="mr-2 h-6 w-6"
-                          viewBox="0 0 16 16"
-                        >
-                          <g fill="none" fillRule="evenodd" clipRule="evenodd">
-                            <path
-                              fill="#f44336"
-                              d="M7.209 1.061c.725-.081 1.154-.081 1.933 0a6.57 6.57 0 0 1 3.65 1.82a100 100 0 0 0-1.986 1.93q-1.876-1.59-4.188-.734q-1.696.78-2.362 2.528a78 78 0 0 1-2.148-1.658a.26.26 0 0 0-.16-.027q1.683-3.245 5.26-3.86"
-                              opacity="0.987"
-                            />
-                            <path
-                              fill="#ffc107"
-                              d="M1.946 4.92q.085-.013.161.027a78 78 0 0 0 2.148 1.658A7.6 7.6 0 0 0 4.04 7.99q.037.678.215 1.331L2 11.116Q.527 8.038 1.946 4.92"
-                              opacity="0.997"
-                            />
-                            <path
-                              fill="#448aff"
-                              d="M12.685 13.29a26 26 0 0 0-2.202-1.74q1.15-.812 1.396-2.228H8.122V6.713q3.25-.027 6.497.055q.616 3.345-1.423 6.032a7 7 0 0 1-.51.49"
-                              opacity="0.999"
-                            />
-                            <path
-                              fill="#43a047"
-                              d="M4.255 9.322q1.23 3.057 4.51 2.854a3.94 3.94 0 0 0 1.718-.626q1.148.812 2.202 1.74a6.62 6.62 0 0 1-4.027 1.684a6.4 6.4 0 0 1-1.02 0Q3.82 14.524 2 11.116z"
-                              opacity="0.993"
-                            />
-                          </g>
-                        </svg>
-                        {googleLoading
-                          ? "Redirecting…"
-                          : "Continue with Google"}
+                        {googleLoading ? (
+                          <>
+                            <svg
+                              className="mr-2 h-6 w-6 animate-spin"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                                fill="none"
+                              />
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                              />
+                            </svg>
+                            Redirecting…
+                          </>
+                        ) : (
+                          <>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="mr-2 h-6 w-6"
+                              viewBox="0 0 16 16"
+                            >
+                              <g
+                                fill="none"
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                              >
+                                <path
+                                  fill="#f44336"
+                                  d="M7.209 1.061c.725-.081 1.154-.081 1.933 0a6.57 6.57 0 0 1 3.65 1.82a100 100 0 0 0-1.986 1.93q-1.876-1.59-4.188-.734q-1.696.78-2.362 2.528a78 78 0 0 1-2.148-1.658a.26.26 0 0 0-.16-.027q1.683-3.245 5.26-3.86"
+                                  opacity="0.987"
+                                />
+                                <path
+                                  fill="#ffc107"
+                                  d="M1.946 4.92q.085-.013.161.027a78 78 0 0 0 2.148 1.658A7.6 7.6 0 0 0 4.04 7.99q.037.678.215 1.331L2 11.116Q.527 8.038 1.946 4.92"
+                                  opacity="0.997"
+                                />
+                                <path
+                                  fill="#448aff"
+                                  d="M12.685 13.29a26 26 0 0 0-2.202-1.74q1.15-.812 1.396-2.228H8.122V6.713q3.25-.027 6.497.055q.616 3.345-1.423 6.032a7 7 0 0 1-.51.49"
+                                  opacity="0.999"
+                                />
+                                <path
+                                  fill="#43a047"
+                                  d="M4.255 9.322q1.23 3.057 4.51 2.854a3.94 3.94 0 0 0 1.718-.626q1.148.812 2.202 1.74a6.62 6.62 0 0 1-4.027 1.684a6.4 6.4 0 0 1-1.02 0Q3.82 14.524 2 11.116z"
+                                  opacity="0.993"
+                                />
+                              </g>
+                            </svg>
+                            Continue with Google
+                          </>
+                        )}
                       </Button>
                     </div>
 
+                    {/* Divider */}
                     <div className="relative text-center text-sm">
                       <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-ourBrown/50" />
+                        <div className="w-full border-t border-border" />
                       </div>
                       <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-ourBrown px-2 text-ourLightGray">
+                        <span className="bg-background px-2 text-primary/80">
                           Or continue with email
                         </span>
                       </div>
                     </div>
 
+                    {/* Email Form */}
                     <Form {...form}>
                       <form
                         className="space-y-4"
                         onSubmit={(e) => {
                           e.preventDefault();
-                          if (form.getValues("email")) setStep("password");
+                          if (form.getValues("email")) {
+                            setStep("password");
+                          }
                         }}
                       >
                         <FormField
@@ -266,14 +321,14 @@ export default function SignUpPage() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="text-base sm:text-lg">
-                                Email address:
+                                Email address
                               </FormLabel>
                               <FormControl>
                                 <Input
                                   id="signup-email"
                                   type="email"
                                   placeholder="Enter your email address"
-                                  className="h-10 sm:h-12 placeholder:text-ourBrown"
+                                  className="h-10 sm:h-12 text-base sm:text-lg"
                                   {...field}
                                 />
                               </FormControl>
@@ -283,7 +338,7 @@ export default function SignUpPage() {
                         />
                         <Button
                           type="submit"
-                          className="w-full h-10 sm:h-12 text-base sm:text-lg bg-ourBrown text-white hover:bg-ourBrown/70 hover:text-white transition-colors"
+                          className="w-full h-10 sm:h-12 text-base sm:text-lg"
                           disabled={!form.getValues("email")}
                         >
                           Continue with email
@@ -293,11 +348,13 @@ export default function SignUpPage() {
                   </>
                 )}
 
+                {/* Step 2: Password and other details */}
                 {step === "password" && (
                   <Form {...form}>
                     <form className="space-y-4" onSubmit={onSubmit}>
+                      {/* Personal Information Section */}
                       <div className="space-y-3">
-                        <h3 className="text-base sm:text-lg font-semibold">
+                        <h3 className="text-base sm:text-lg font-semibold text-primary">
                           Personal Information
                         </h3>
                         <div className="grid grid-cols-2 gap-3">
@@ -312,7 +369,7 @@ export default function SignUpPage() {
                                 <FormControl>
                                   <Input
                                     placeholder="Enter your first name"
-                                    className="h-10 sm:h-12 placeholder:text-ourBrown"
+                                    className="h-10 sm:h-12 text-sm sm:text-base"
                                     {...field}
                                   />
                                 </FormControl>
@@ -320,6 +377,7 @@ export default function SignUpPage() {
                               </FormItem>
                             )}
                           />
+
                           <FormField
                             control={form.control}
                             name="lastName"
@@ -331,7 +389,7 @@ export default function SignUpPage() {
                                 <FormControl>
                                   <Input
                                     placeholder="Enter your last name"
-                                    className="h-10 sm:h-12 placeholder:text-ourBrown"
+                                    className="h-10 sm:h-12 text-sm sm:text-base"
                                     {...field}
                                   />
                                 </FormControl>
@@ -342,8 +400,9 @@ export default function SignUpPage() {
                         </div>
                       </div>
 
+                      {/* Password Section */}
                       <div className="space-y-3">
-                        <h3 className="text-base sm:text-lg font-semibold">
+                        <h3 className="text-base sm:text-lg font-semibold text-primary">
                           Create Password
                         </h3>
                         <FormField
@@ -359,13 +418,13 @@ export default function SignUpPage() {
                                   <Input
                                     type={showPw ? "text" : "password"}
                                     placeholder="Create a strong password"
-                                    className="h-10 sm:h-12 pr-10 placeholder:text-ourBrown"
+                                    className="h-10 sm:h-12 text-sm sm:text-base pr-10"
                                     {...field}
                                   />
                                   <button
                                     type="button"
                                     onClick={() => setShowPw((v) => !v)}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:text-ourBrown/90 transition-colors"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-primary/80 hover:text-primary transition-colors"
                                     aria-label={
                                       showPw ? "Hide password" : "Show password"
                                     }
@@ -383,6 +442,7 @@ export default function SignUpPage() {
                             </FormItem>
                           )}
                         />
+
                         <FormField
                           control={form.control}
                           name="confirm"
@@ -396,13 +456,13 @@ export default function SignUpPage() {
                                   <Input
                                     type={showPw2 ? "text" : "password"}
                                     placeholder="Confirm your password"
-                                    className="h-10 sm:h-12 pr-10 placeholder:text-ourBrown"
+                                    className="h-10 sm:h-12 text-sm sm:text-base pr-10"
                                     {...field}
                                   />
                                   <button
                                     type="button"
                                     onClick={() => setShowPw2((v) => !v)}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:text-ourBrown/90 transition-colors"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-primary/80 hover:text-primary transition-colors"
                                     aria-label={
                                       showPw2
                                         ? "Hide password"
@@ -427,7 +487,7 @@ export default function SignUpPage() {
                       <div className="pt-2 space-y-3">
                         <Button
                           type="submit"
-                          className="w-full h-10 sm:h-12 text-base sm:text-lg bg-white text-ourBrown hover:bg-ourBrown/70 cursor-pointer hover:text-white transition-colors"
+                          className="w-full h-10 sm:h-12 text-base sm:text-lg"
                           disabled={loading}
                         >
                           {loading ? "Creating account…" : "Create account"}
@@ -436,12 +496,11 @@ export default function SignUpPage() {
                     </form>
                   </Form>
                 )}
-
                 <div className="text-center text-sm sm:text-base">
                   Already have an account?{" "}
                   <Link
                     href="/signin"
-                    className="font-bold hover:underline text-ourBrown transition-colors"
+                    className="font-bold text-primary hover:text-primary/80 transition-colors"
                   >
                     Sign in
                   </Link>
@@ -449,19 +508,20 @@ export default function SignUpPage() {
               </CardContent>
             </Card>
 
-            <div className="text-center text-xs text-white">
-              <p>
+            {/* Mobile Terms */}
+            <div className="text-center text-xs text-primary/80">
+              <p className="text-balance">
                 By creating an account, you agree to our{" "}
                 <Link
                   href="/terms"
-                  className="font-medium underline underline-offset-4 text-white hover:text-ourDB transition-colors"
+                  className="font-medium text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/privacy-policy"
-                  className="font-medium underline underline-offset-4 text-white hover:text-ourDB transition-colors"
+                  className="font-medium text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
                 >
                   Privacy Policy
                 </Link>
