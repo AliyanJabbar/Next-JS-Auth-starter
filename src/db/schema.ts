@@ -5,8 +5,8 @@ import {
   text,
   primaryKey,
   integer,
-} from "drizzle-orm/pg-core"
-import type { AdapterAccountType } from "next-auth/adapters"
+} from "drizzle-orm/pg-core";
+import type { AdapterAccountType } from "next-auth/adapters";
 
 export const users = pgTable("user", {
   id: text("id")
@@ -17,8 +17,8 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   // Add the password column here
-  password: text("password"), 
-})
+  password: text("password"),
+});
 
 // ... The 'accounts', 'sessions', and 'verificationTokens' tables remain unchanged
 export const accounts = pgTable(
@@ -43,7 +43,7 @@ export const accounts = pgTable(
       columns: [account.provider, account.providerAccountId],
     }),
   })
-)
+);
 
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").primaryKey(),
@@ -51,7 +51,7 @@ export const sessions = pgTable("session", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
-})
+});
 
 export const verificationTokens = pgTable(
   "verificationToken",
@@ -65,4 +65,16 @@ export const verificationTokens = pgTable(
       columns: [verificationToken.identifier, verificationToken.token],
     }),
   })
-)
+);
+
+export const passwordResetTokens = pgTable(
+  "passwordResetToken",
+  {
+    email: text("email").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (t) => ({
+    compositePk: primaryKey({ columns: [t.email, t.token] }),
+  })
+);

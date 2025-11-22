@@ -1,9 +1,5 @@
-import RegisterForm from "@/components/registerform";
+import SignUpCard from "@/components/signup";
 
-export default function RegisterPage() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <RegisterForm />
-    </main>
-  );
+export default function Register() {
+  return <SignUpCard />;
 }
