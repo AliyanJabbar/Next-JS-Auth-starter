@@ -6,36 +6,36 @@ This is a comprehensive authentication starter template built with the cutting-e
 
 ## 🚀 Features
 
-* **Framework**: Next.js 16 (App Router + Server Actions)
+- **Framework**: Next.js 16 (App Router + Server Actions)
 
-* **Database**: Neon Serverless Postgres (via Drizzle ORM)
+- **Database**: Neon Serverless Postgres (via Drizzle ORM)
 
-* **Authentication**: Auth.js v5 (NextAuth)
+- **Authentication**: Auth.js v5 (NextAuth)
 
-  * Google OAuth Support
-  * Credential Login (Email/Password)
-  * Secure Password Hashing (bcryptjs)
+  - Google OAuth Support
+  - Credential Login (Email/Password)
+  - Secure Password Hashing (bcryptjs)
 
-* **Flows**:
+- **Flows**:
 
-  * Sign In
-  * Sign Up (Registration)
-  * Forgot Password (Email w/ Nodemailer)
+  - Sign In
+  - Sign Up (Registration)
+  - Forgot Password (Email w/ Nodemailer)
 
-* **UI**:
+- **UI**:
 
-  * Tailwind CSS
-  * Shadcn UI
-  * Lucide Icons
+  - Tailwind CSS
+  - Shadcn UI
+  - Lucide Icons
 
 ---
 
 ## 🛠️ Prerequisites
 
-* Node.js 18+ installed
-* A [Neon](https://neon.tech) database
-* A [Google Cloud](https://console.cloud.google.com/) project
-* For Gmail SMTP: **Your Gmail account must have 2-Step Verification enabled**
+- Node.js 18+ installed
+- A [Neon](https://neon.tech) database
+- A [Google Cloud](https://console.cloud.google.com/) project
+- For Gmail SMTP: **Your Gmail account must have 2-Step Verification enabled**
   (Otherwise **App Passwords will NOT show**, and SMTP will NOT work.)
 
 ---
@@ -87,12 +87,19 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
 ### **Step 1: Get Neon Database URL**
 
-1. Go to **Neon Console**
-2. Create a new Project
-3. View **Connection Details**
-4. Ensure **Pooled connection** is enabled
-5. Copy the connection string
-6. Paste into `DATABASE_URL` in `.env.local`
+1. Go to your **Vercel Dashboard**.
+2. Click on the **Storage** tab.
+3. Click **Create Database** and select **Neon**.
+4. Make sure to check the **Auth** option (if available/prompted during setup).
+5. Give a name to your database.
+   - _Note: On the free tier (Hobby), you cannot change this database name later._
+6. Select your region and click **Create**.
+7. Once created, go to you database and select **.env.local** tab .
+8. Copy the `POSTGRES_URL` (or `DATABASE_URL`) value.
+9. Paste it into your local `.env.local` file:
+   ```env
+   DATABASE_URL="postgres://..."
+   ```
 
 ---
 
@@ -101,25 +108,17 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 1. Go to **Google Cloud Console**
 2. Create a new project
 3. Visit **APIs & Services → OAuth consent screen**
-4. Select **External** → Continue
-5. Fill App Name & Support Email
-6. Go to **Credentials → Create Credentials → OAuth client ID**
-7. Choose **Web Application**
-8. Add:
 
-**Authorized JavaScript origins**
+   - Select External and create.
+   - Fill in App Name and Support Email.
 
-```
-http://localhost:3000
-```
+4. **Go to Credentials** > **Create Credentials** > **OAuth client ID**.
 
-**Authorized redirect URIs**
+   - Application type: Web application.
+   - Authorized JavaScript origins: http://localhost:3000
+   - Authorized redirect URIs: http://localhost:3000/api/auth/callback/google
 
-```
-http://localhost:3000/api/auth/callback/google
-```
-
-9. Copy **Client ID** and **Client Secret** into `.env.local`
+5. Copy **Client ID** and **Client Secret** into `.env.local`
 
 ---
 
@@ -173,7 +172,7 @@ Open:
 
 ---
 
-## 🧰 Optional: View Your Database with Drizzle Studio
+## 🧰 View Your Database with Drizzle Studio
 
 If you want a simple local dashboard to view your tables (including all registered users), you can use **Drizzle Studio**.
 
@@ -192,8 +191,8 @@ src/
  ├─ actions/           # Server Actions (register, reset password, etc.)
  ├─ app/               # App Router (login, register, forgot password)
  ├─ auth.ts            # NextAuth v5 config
- ├─ components/        # Authentication UI
- ├─ components/ui      # UI components
+ ├─ components/        # Authentication UI | UI
+ ├─ components/ui      # UI components shadcn
  ├─ db/                # Database schema + connection
  └─ lib/               # Nodemailer + utilities
 ```
@@ -226,9 +225,9 @@ http://localhost:3000/api/auth/callback/google
 
 Check:
 
-* Using a **16-character App Password**
-* Gmail **2-Step Verification is enabled**
-* `SMTP_PORT` is **587**
+- Using a **16-character App Password**
+- Gmail **2-Step Verification is enabled**
+- `SMTP_PORT` is **587**
 
 ---
 
@@ -236,9 +235,9 @@ Check:
 
 Fix:
 
-* Save `src/db/schema.ts`
-* Restart dev server
-* Restart your IDE
+- Save `src/db/schema.ts`
+- Restart dev server
+- Restart your IDE
 
 ---
 

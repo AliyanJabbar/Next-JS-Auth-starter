@@ -1,11 +1,11 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
 import { ResetPasswordCard } from "@/components/resetpassword";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export default function ResetPasswordPage() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token") ?? undefined;
-
-  return <ResetPasswordCard token={token} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <ResetPasswordCard />
+    </Suspense>
+  );
 }

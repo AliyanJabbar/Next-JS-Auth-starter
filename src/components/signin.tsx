@@ -26,7 +26,7 @@ import { checkEmailStatus } from "@/actions/check-user-existence"; // Ensure thi
 const SignIn = () => {
   const router = useRouter();
   const params = useSearchParams();
-  
+
   // State variables
   const [loading, setLoading] = useState(false);
   const [loadingGithub, setLoadingGithub] = useState(false);
@@ -45,18 +45,22 @@ const SignIn = () => {
   useEffect(() => {
     const urlError = params.get("error");
     if (urlError) {
-      setErrorState(urlError === "CredentialsSignin" ? "Invalid email or password" : urlError);
+      setErrorState(
+        urlError === "CredentialsSignin"
+          ? "Invalid email or password"
+          : urlError
+      );
     }
   }, [params]);
 
   // 1. Handle Credential Login (Email/Pass)
   const onCredentialSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     // 🔴 CRITICAL FIX: Clear previous errors immediately on submit
-    setErrorState(""); 
+    setErrorState("");
     setCreatedMsg(null);
-    
+
     setLoading(true);
     setLoadingLogin(true);
 

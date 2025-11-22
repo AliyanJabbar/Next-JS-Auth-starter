@@ -14,17 +14,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
 
-interface ResetPasswordCardProps {
-  token?: string;
-}
-
-export function ResetPasswordCard({ token }: ResetPasswordCardProps) {
+export function ResetPasswordCard() {
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
   const [isPending, setIsPending] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token") ?? undefined;
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +57,10 @@ export function ResetPasswordCard({ token }: ResetPasswordCardProps) {
         <Card className="p-6 text-center max-w-md">
           <CardTitle>Invalid Link</CardTitle>
           <p className="text-red-600 mt-4">Missing or invalid token.</p>
-          <Link href="/forgot-password" className="mt-6 block font-bold text-primary">
+          <Link
+            href="/forgot-password"
+            className="mt-6 block font-bold text-primary"
+          >
             Request New Reset Link
           </Link>
         </Card>
@@ -70,7 +73,9 @@ export function ResetPasswordCard({ token }: ResetPasswordCardProps) {
       <div className="w-full max-w-lg space-y-2">
         <Card className="border-0 shadow-none bg-transparent">
           <CardHeader className="text-center space-y-1 pb-4">
-            <CardTitle className="text-2xl lg:text-3xl font-bold">Reset Your Password</CardTitle>
+            <CardTitle className="text-2xl lg:text-3xl font-bold">
+              Reset Your Password
+            </CardTitle>
             <CardDescription className="text-base text-muted-foreground">
               Enter your new password to complete your reset.
             </CardDescription>
@@ -114,7 +119,11 @@ export function ResetPasswordCard({ token }: ResetPasswordCardProps) {
                 />
               </div>
 
-              <Button type="submit" disabled={isPending} className="w-full h-10 sm:h-12 text-base text-white">
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="w-full h-10 sm:h-12 text-base text-white"
+              >
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 size-5 animate-spin" />
@@ -126,7 +135,10 @@ export function ResetPasswordCard({ token }: ResetPasswordCardProps) {
               </Button>
 
               <div className="text-center mt-4">
-                <Link href="/login" className="font-bold inline-flex items-center text-primary">
+                <Link
+                  href="/login"
+                  className="font-bold inline-flex items-center text-primary"
+                >
                   <ArrowLeft className="mr-2 w-4 h-4" />
                   Back to Login
                 </Link>
