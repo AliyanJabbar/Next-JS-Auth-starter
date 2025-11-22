@@ -4,23 +4,43 @@ This is a comprehensive authentication starter template built with the cutting-e
 
 ---
 
+## 🖼️ Screenshots
+
+### Home
+[![Home](public/home.png)](public/home.png)
+
+### Login
+[![Login](public/login.png)](public/login.png)
+
+### Register
+[![Register](public/register.png)](public/register.png)
+[![Register](public/register2.png)](public/register.png)
+
+### Forgot Password
+[![Forgot Password](public/forgot-password.png)](public/forgot-password.png)
+
+### Reset Password
+[![Reset Password](public/reset-password.png)](public/reset-password.png)
+
+---
+
 ## 🚀 Features
 
-- **Framework**: Next.js 16 (App Router + Server Actions)
+- **Framework**: Next.js 16.0.3 (App Router + Server Actions)
 
 - **Database**: Neon Serverless Postgres (via Drizzle ORM)
 
-- **Authentication**: Auth.js v5 (NextAuth)
+- **Authentication**: Auth.js v5 (next-auth@5.0.0-beta.30)
 
   - Google OAuth Support
   - Credential Login (Email/Password)
-  - Secure Password Hashing (bcryptjs)
+  - Secure Password Hashing (bcryptjs@3.0.3)
 
 - **Flows**:
 
   - Sign In
   - Sign Up (Registration)
-  - Forgot Password (Email w/ Nodemailer)
+  - Forgot Password (Email w/ nodemailer@7.0.10)
 
 - **UI**:
 

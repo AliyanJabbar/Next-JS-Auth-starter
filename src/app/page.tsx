@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
-      <main className="flex-1 flex flex-col items-center justify-center p-6 sm:p-24 gap-10 text-center">
+    <div className="min-h-[90vh] flex flex-col bg-slate-50">
+      <main className="flex-1 flex flex-col items-center justify-center p-6 sm:px-24 gap-10 text-center">
         {/* Hero Section */}
         <div className="space-y-4 max-w-3xl">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-black">
