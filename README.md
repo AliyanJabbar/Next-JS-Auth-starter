@@ -41,6 +41,7 @@ This is a comprehensive authentication starter template built with the cutting-e
   - Sign In
   - Sign Up (Registration)
   - Forgot Password (Email w/ nodemailer@7.0.10)
+  - Reset Password (with token via email confirmation)
 
 - **UI**:
 
