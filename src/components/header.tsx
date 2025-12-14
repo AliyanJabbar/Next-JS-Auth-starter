@@ -51,7 +51,7 @@ export default async function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
+                    className="relative h-8 w-8 rounded-full cursor-pointer"
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
@@ -81,7 +81,6 @@ export default async function Header() {
                       Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     {/* Server Action for Sign Out */}
                     <form
